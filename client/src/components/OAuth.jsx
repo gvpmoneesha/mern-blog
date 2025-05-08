@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "flowbite-react";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import {
@@ -15,13 +15,19 @@ import { useDispatch } from "react-redux";
 export default function OAuth() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const auth = getAuth(app);
 
   const handleGoogleClick = async () => {
+    if (isLoading) return;
+
     const provider = new GoogleAuthProvider();
-    provider.getCustomParameters({ prompt: "select_account" });
+    provider.setCustomParameters({ prompt: "select_account" });
+
     try {
+      setIsLoading(true);
+
       const resultsFromGoogle = await signInWithPopup(auth, provider);
 
       const res = await fetch("/api/auth/google", {
@@ -30,17 +36,22 @@ export default function OAuth() {
         body: JSON.stringify({
           name: resultsFromGoogle.user.displayName,
           email: resultsFromGoogle.user.email,
-          googlePhotoUrl: resultsFromGoogle.photoURL,
+          googlePhotoUrl: resultsFromGoogle.user.photoURL,
         }),
       });
 
       const data = await res.json();
+
       if (res.ok) {
         dispatch(signInSuccess(data));
         navigate("/");
+      } else {
+        console.error("Failed to save user data:", data);
       }
-    } catch (erro) {
-      console.log(error);
+    } catch (error) {
+      console.error("Google sign-in failed:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
