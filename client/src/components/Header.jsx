@@ -9,6 +9,8 @@ export default function Header() {
   const path = useLocation().pathname;
   const { currentUser } = useSelector((state) => state.user);
 
+  //console.log(currentUser);
+
   return (
     <div>
       <Navbar className="border-b-2">
@@ -45,7 +47,22 @@ export default function Header() {
               label={
                 <Avatar alt="user" img={currentUser.profilePicture} rounded />
               }
-            ></Dropdown>
+            >
+              <Dropdown.Header>
+                <span className="block text-sm">@{currentUser.userName}</span>
+                <span className="block text-sm font-medium truncate">
+                  {currentUser.email}
+                </span>
+              </Dropdown.Header>
+
+              <Link to={"/dashboard?tab=profile"}>
+                <Dropdown.Item>Profile</Dropdown.Item>
+              </Link>
+
+              <Dropdown.Divider />
+
+              <Dropdown.Item>Sign Out</Dropdown.Item>
+            </Dropdown>
           ) : (
             <Link to="/sign-in">
               <Button gradientDuoTone="purpleToBlue" outline>
