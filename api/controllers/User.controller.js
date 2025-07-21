@@ -33,27 +33,27 @@ export const updateUser = async (req, res, next) => {
         errorHandler(400, "Username can only contain letters and numbers")
       );
     }
-    try {
-      const updatedUser = await User.findByIdAndUpdate(
-        req.params.userId,
-        {
-          $set: {
-            userName: req.body.userName,
-            email: req.body.email,
-            profilePicture: req.body.profilePicture,
-            password: req.body.password,
-          },
+  }
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.userId,
+      {
+        $set: {
+          userName: req.body.userName,
+          email: req.body.email,
+          profilePicture: req.body.profilePicture,
+          password: req.body.password,
         },
-        { new: true }
-      );
-      if (!updatedUser) {
-        return next(errorHandler(404, "User not found"));
-      }
-
-      const { password, ...rest } = updatedUser._doc;
-      res.status(200).json(rest);
-    } catch (error) {
-      next(error);
+      },
+      { new: true }
+    );
+    if (!updatedUser) {
+      return next(errorHandler(404, "User not found"));
     }
+
+    const { password, ...rest } = updatedUser._doc;
+    res.status(200).json(rest);
+  } catch (error) {
+    next(error);
   }
 };
