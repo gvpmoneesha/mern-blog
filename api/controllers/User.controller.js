@@ -16,19 +16,19 @@ export const updateUser = async (req, res, next) => {
     }
     req.body.password = bcryptjs.hashSync(req.body.password, 10);
   }
-  if (req.body.username) {
-    if (req.body.username.length < 7 || req.body.username.length > 20) {
+  if (req.body.userName) {
+    if (req.body.userName.length < 7 || req.body.userName.length > 20) {
       return next(
         errorHandler(400, "Usename must be between 7 and 20 characters")
       );
     }
-    if (req.body.username.includes(" ")) {
+    if (req.body.userName.includes(" ")) {
       return next(errorHandler(400, "Usename cannot contain spaces"));
     }
-    if (req.body.username !== req.body.username.toLowerCase()) {
+    if (req.body.userName !== req.body.userName.toLowerCase()) {
       return next(errorHandler(400, "Usename must be lowercase"));
     }
-    if (!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
+    if (!req.body.userName.match(/^[a-zA-Z0-9]+$/)) {
       return next(
         errorHandler(400, "Username can only contain letters and numbers")
       );
@@ -38,7 +38,7 @@ export const updateUser = async (req, res, next) => {
         req.params.userId,
         {
           $set: {
-            username: req.body.username,
+            userName: req.body.userName,
             email: req.body.email,
             profilePicture: req.body.profilePicture,
             password: req.body.password,
@@ -46,6 +46,10 @@ export const updateUser = async (req, res, next) => {
         },
         { new: true }
       );
+      if (!updatedUser) {
+        return next(errorHandler(404, "User not found"));
+      }
+
       const { password, ...rest } = updatedUser._doc;
       res.status(200).json(rest);
     } catch (error) {
