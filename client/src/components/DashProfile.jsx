@@ -21,11 +21,12 @@ import {
 } from "../redux/User/userSlice";
 import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 import { Model } from "mongoose";
 
 export default function DashProfile() {
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const filePickerRef = useRef();
   const [imageUploadProgress, setImageUploadProgress] = useState(0);
@@ -215,9 +216,26 @@ export default function DashProfile() {
           onChange={handleChange}
         />
 
-        <Button type="submit" gradientDuoTone="purpleToBlue" outline>
-          Update
+        <Button
+          type="submit"
+          gradientDuoTone="purpleToBlue"
+          outline
+          disabled={loading}
+        >
+          {loading ? "Loading" : "Update"}
         </Button>
+
+        {currentUser.isAdmin && (
+          <Link to={"/create-post"}>
+            <Button
+              type="button"
+              gradientDuoTone="purpleToBlue"
+              className="w-full"
+            >
+              Create a post
+            </Button>
+          </Link>
+        )}
       </form>
 
       {/*{imageUploadProgress > 0 && (
