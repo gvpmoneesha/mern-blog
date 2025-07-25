@@ -98,14 +98,14 @@ export default function DashPost() {
             </Table.Head>
 
             {userPosts.map((post) => (
-              <Table.Body className="divide-y">
+              <Table.Body className="divide-y" key={post._id}>
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                   <Table.Cell>
                     {new Date(post.updatedAt).toLocaleDateString()}
                   </Table.Cell>
 
                   <Table.Cell>
-                    <Link to={`post/${post.slug}`}>
+                    <Link to={`/post/${post.slug}`}>
                       <img
                         src={post.image}
                         alt={post.title}
