@@ -153,7 +153,8 @@ export default function DashPost() {
           {showMore && (
             <Button
               onClick={handleShowMore}
-              className="w-full text-teal-500 self-center text-sm py-7"
+              color="none"
+              className="w-full text-teal-500 self-center text-sm py-7 bg-white hover:bg-white dark:bg-inherit hover:dark:bg-inherit hover:bg-transparent"
             >
               Show more
             </Button>
