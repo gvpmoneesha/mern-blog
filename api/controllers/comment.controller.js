@@ -3,12 +3,7 @@ import { errorHandler } from "../utils/error.js";
 
 export const createComment = async (req, res, next) => {
   try {
-    const { content, userId } = req.body;
-    let { postId } = req.body;
-
-    if (typeof postId === "object" && postId !== null && postId.postId) {
-      postId = postId.postId;
-    }
+    const { content, userId, postId } = req.body;
 
     if (userId !== req.user.id) {
       return next(
@@ -24,6 +19,17 @@ export const createComment = async (req, res, next) => {
     await newComment.save();
 
     res.status(200).json(newComment);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getPostComments = async (req, res, next) => {
+  try {
+    const comments = await Comment.find({ postId: req.params.postId }).sort({
+      createdAt: -1,
+    });
+    res.status(200).json(comments);
   } catch (error) {
     next(error);
   }
