@@ -56,7 +56,7 @@ export default function Header() {
           className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white"
         >
           <span className="px-2 py-1 bg-gradient-to-r from-teal-300 via-cyan-600 to-purple-500 rounded-lg text-white">
-            Moneesha's
+            Monee
           </span>
           Blog
         </Link>

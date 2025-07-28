@@ -19,7 +19,7 @@ export default function FooterCom() {
               className="self-center whitespace-nowrap text-lg sm:text-xl font-semibold dark:text-white"
             >
               <span className="px-2 py-1 bg-gradient-to-r from-teal-300 via-cyan-600 to-purple-500 rounded-lg text-white">
-                Moneesha's
+                Monee
               </span>
               Blog
             </Link>
@@ -42,7 +42,7 @@ export default function FooterCom() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Moneesha's Blog
+                  Monee Blog
                 </Footer.Link>
               </Footer.LinkGroup>
             </div>
@@ -84,7 +84,7 @@ export default function FooterCom() {
         <div className="w-full sm:flex sm:place-items-center sm:justify-between">
           <Footer.Copyright
             href="#"
-            by="Moneesha's blog"
+            by="Monee blog"
             year={new Date().getFullYear()}
           />
 
