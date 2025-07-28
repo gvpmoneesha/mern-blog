@@ -14,14 +14,12 @@ export default function CallToAction() {
         <Button
           gradientDuoTone="purpleToBlue"
           className="rounded-tl-xl rounded-bl-none"
+          as="a"
+          href="https://www.geeksforgeeks.org/mern/mern-stack-projects/"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          <a
-            href="https://www.geeksforgeeks.org/mern/mern-stack-projects/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            MERN stack projects
-          </a>
+          MERN stack projects
         </Button>
       </div>
 
