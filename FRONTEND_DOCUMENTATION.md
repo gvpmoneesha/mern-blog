@@ -52,7 +52,7 @@ The `client/src` directory is organized as follows:
 - **`PrivateRoute.jsx`**: Protects routes that require login.
 - **`OnlyAdminPrivateRoute.jsx`**: Protects routes that require admin privileges.
 
-## 🔄 State Management (Redux)
+## State Management (Redux)
 
 The application uses **Redux Toolkit** to manage global state.
 - **User Slice**: Manages current user data, loading state, and errors.
